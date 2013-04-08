@@ -1,7 +1,7 @@
 <?php
 
 class QueryBuilder{
-  
+	
 	/*
 	 * This class creates the query, but does not execute. Insert this query into any normal process you might have in order to achieve
 	 * the end result.
@@ -167,7 +167,20 @@ class QueryBuilder{
 			
 			return null;
 		}
+		
 		$insertFieldsString = implode(",",$this->insertFields);
+		
+		$insertValuesString = "";
+		for($i=0;$i<count($this->insertValues);$i++){
+			$quote = "'";
+			if(is_numeric($this->insertValues[$i])){
+				$quote = "";
+			}
+				
+			$this->insertValues[$i] = $quote.$this->insertValues[$i].$quote;
+				
+		}
+
 		$insertValuesString = implode(",",$this->insertValues);
 		$tableString = implode(",", $this->table);
 		
